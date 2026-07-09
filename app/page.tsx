@@ -119,11 +119,21 @@ export default function Home() {
 
   const chieuResultValue = tongThucTeChieu + 500 - afterKhacChieu;
 
-  let tongKetAll = tongThucTeSang + (tongThucTeChieu + 500) + daoTotal;
+  const tongKetAll = tongThucTeSang + (tongThucTeChieu + 500) + daoTotal;
 
-  useEffect(() => {
+  const computeKhacSum = (item: {
+    nho: number;
+    trung: number;
+    lon: number;
+    sign: string;
+  }) =>
+    (item.nho * 3 + item.trung * 4 + item.lon * 7) *
+    (item.sign === "-" ? -1 : 1);
+
+  const updateKhacItems = (count: number) => {
     setKhacItems((prevItems) => {
-      const newItems = Array.from({ length: soKhac }, (_, i) => {
+      const normalizedCount = Math.max(0, count);
+      const newItems = Array.from({ length: normalizedCount }, (_, i) => {
         const existingItem = prevItems[i];
         return (
           existingItem || {
@@ -139,22 +149,15 @@ export default function Home() {
       });
       return newItems.map((item) => ({
         ...item,
-        sum:
-          (item.nho * 3 + item.trung * 4 + item.lon * 7) *
-          (item.sign === "-" ? -1 : 1),
+        sum: computeKhacSum(item),
       }));
     });
-  }, [soKhac]);
+  };
 
-  useEffect(() => {
-    setChiTieuItems((prevItems) => {
-      return Array.from({ length: chiTieuCount }, (_, i) => prevItems[i] || 0);
-    });
-  }, [chiTieuCount]);
-
-  useEffect(() => {
+  const updateKhacItemsChieu = (count: number) => {
     setKhacItemsChieu((prevItems) => {
-      const newItems = Array.from({ length: soKhacChieu }, (_, i) => {
+      const normalizedCount = Math.max(0, count);
+      const newItems = Array.from({ length: normalizedCount }, (_, i) => {
         const existingItem = prevItems[i];
         return (
           existingItem || {
@@ -170,21 +173,24 @@ export default function Home() {
       });
       return newItems.map((item) => ({
         ...item,
-        sum:
-          (item.nho * 3 + item.trung * 4 + item.lon * 7) *
-          (item.sign === "-" ? -1 : 1),
+        sum: computeKhacSum(item),
       }));
     });
-  }, [soKhacChieu]);
+  };
 
-  useEffect(() => {
-    setChiTieuChieuItems((prevItems) => {
-      return Array.from(
-        { length: chiTieuChieuCount },
-        (_, i) => prevItems[i] || 0,
-      );
+  const updateChiTieuItems = (count: number) => {
+    setChiTieuItems((prevItems) => {
+      const normalizedCount = Math.max(0, count);
+      return Array.from({ length: normalizedCount }, (_, i) => prevItems[i] || 0);
     });
-  }, [chiTieuChieuCount]);
+  };
+
+  const updateChiTieuChieuItems = (count: number) => {
+    setChiTieuChieuItems((prevItems) => {
+      const normalizedCount = Math.max(0, count);
+      return Array.from({ length: normalizedCount }, (_, i) => prevItems[i] || 0);
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 font-sans text-gray-800">

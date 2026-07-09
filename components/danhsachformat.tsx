@@ -1,4 +1,21 @@
-const DanhsachFormat = ({ data }) => {
+interface DanhsachItem {
+  _id: string;
+  today: number;
+  month: number;
+  year: number;
+  totalPrice: number;
+}
+
+interface DanhsachData {
+  danhsach: DanhsachItem[];
+  total: number;
+}
+
+interface DanhsachFormatProps {
+  data?: DanhsachData | null;
+}
+
+const DanhsachFormat = ({ data }: DanhsachFormatProps) => {
   // Kiểm tra nếu không có dữ liệu
   if (!data || !data.danhsach || data.danhsach.length === 0) {
     return <div className="p-4 text-center ">Không có dữ liệu tìm kiếm.</div>;
@@ -10,7 +27,7 @@ const DanhsachFormat = ({ data }) => {
     <div className="p-4 min-w-3xl mx-auto">
       {/* Danh sách các mục */}
       <div className=" flex flex-col">
-        {danhsach.map((item) => (
+        {danhsach.map((item: DanhsachItem) => (
           <div key={item._id} className="w-full flex justify-between items-center">
             {/* Format ngày tháng năm: nn/mm/yyyy */}
             <span className="font-medium">

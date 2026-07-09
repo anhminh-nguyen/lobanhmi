@@ -5,7 +5,12 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: NextRequest) {
   try {
     const searchparams = request.nextUrl.searchParams;
-    const filter: any = {};
+    type SearchFilter = {
+      today?: string;
+      month?: string;
+      year?: string;
+    };
+    const filter: SearchFilter = {};
 
     const ngay = searchparams.get('ngay');
     const thang = searchparams.get('thang');
