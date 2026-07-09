@@ -1,6 +1,4 @@
 import Ngay from "@/database/ngaySchema";
-import Thang from "@/database/thangSchema";
-import Nam from "@/database/yearSchema";
 import { connectDb } from "@/lib/connectDB";
 import { NextResponse } from "next/server";
 
