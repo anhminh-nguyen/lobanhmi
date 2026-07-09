@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import LuuTotalDate from "@/components/luuTotalDate";
 import { luuTongNgay } from "@/lib/luuTongNgay";
 import Image from "next/image";
 import Link from "next/link";
