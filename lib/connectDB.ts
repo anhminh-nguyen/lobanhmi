@@ -5,7 +5,7 @@ export async function connectDb() {
   if (mongoose.connection.readyState >= 1) return;
 
   // Dùng thẳng biến DATABASE_URI từ .env.local
-  await mongoose.connect(process.env.DATABASE_URI!);
+  await mongoose.connect(process.env.MONGODB_URI!);
   console.log("Kết nối MongoDB thành công!");
   return true;
   
