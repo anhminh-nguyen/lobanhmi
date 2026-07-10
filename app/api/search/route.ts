@@ -4,6 +4,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
   try {
+
+    await connectDb()
+
     const searchparams = request.nextUrl.searchParams;
     type SearchFilter = {
       today?: string;

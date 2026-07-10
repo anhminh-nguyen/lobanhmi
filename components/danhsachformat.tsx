@@ -24,11 +24,11 @@ const DanhsachFormat = ({ data }: DanhsachFormatProps) => {
   const { danhsach, total } = data;
 
   return (
-    <div className="p-4 min-w-3xl mx-auto">
+    <div className="p-4  md:min-w-3xl mx-auto">
       {/* Danh sách các mục */}
       <div className=" flex flex-col">
         {danhsach.map((item: DanhsachItem) => (
-          <div key={item._id} className="w-full flex justify-between items-center">
+          <div key={item._id} className=" w-sm md:w-full flex justify-between items-center">
             {/* Format ngày tháng năm: nn/mm/yyyy */}
             <span className="font-medium">
               {String(item.today).padStart(2, '0')}/
