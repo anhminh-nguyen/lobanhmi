@@ -65,29 +65,35 @@ export default function Home() {
   const [thang, setThang] = useState("1");
   const [nam, setNam] = useState("2026");
 
+  // constant price
+  const [nhoPrice, setNhoprice] = useState(3);
+  const [trungPrice, setTrungprice] = useState(4);
+  const [lonPrice, setLonprice] = useState(8);
+
+
 
   // Computed Values - Morning
-  const computeNho = nho * 3;
-  const computeTrung = trung * 4;
-  const computeLon = lon * 8;
+  const computeNho = nho * nhoPrice;
+  const computeTrung = trung * trungPrice;
+  const computeLon = lon * lonPrice;
   const sumBanhRa = computeNho + computeTrung + computeLon;
 
-  const computeMoiNho = moiNho * 3;
-  const computeMoiTrung = moiTrung * 4;
-  const computeMoiLon = moiLon * 8;
+  const computeMoiNho = moiNho * nhoPrice;
+  const computeMoiTrung = moiTrung * trungPrice;
+  const computeMoiLon = moiLon * lonPrice;
   const sumMoi = computeMoiNho + computeMoiTrung + computeMoiLon;
 
   const moiMinusResult = sumBanhRa - sumMoi;
 
-  const boTotal = boNho * 3 + boTrung * 4 + boLon * 8;
+  const boTotal = boNho * nhoPrice + boTrung * trungPrice + boLon * lonPrice;
   const afterBo = moiMinusResult - boTotal;
 
-  const daoTotal = daoNho * 3 + Math.round(daoTrung * 3.5) + daoLon * 8;
+  const daoTotal = daoNho * nhoPrice + Math.round(daoTrung * 3.5) + daoLon * lonPrice;
   const afterDao = afterBo - daoTotal;
   const tangDaoValue = daoTrung > 0 ? Math.round(daoTrung * 0.5) : 0;
   const afterTangDao = afterDao - tangDaoValue;
 
-  const quaChieuTotal = quaChieuNho * 3 + quaChieuTrung * 4 + quaChieuLon * 8;
+  const quaChieuTotal = quaChieuNho * nhoPrice + quaChieuTrung * trungPrice + quaChieuLon * lonPrice;
   const afterQuaChieu = afterTangDao - quaChieuTotal;
 
   const khacTotal = khacItems.reduce((acc, item) => acc + item.sum, 0);
@@ -99,9 +105,9 @@ export default function Home() {
   const ketResult = tongThucTeSang - afterSang;
 
   // Computed Values - Afternoon
-  const computeBuoiChieuNho = buoiChieuNho * 3;
-  const computeBuoiChieuTrung = buoiChieuTrung * 4;
-  const computeBuoiChieuLon = buoiChieuLon * 8;
+  const computeBuoiChieuNho = buoiChieuNho * nhoPrice;
+  const computeBuoiChieuTrung = buoiChieuTrung * trungPrice;
+  const computeBuoiChieuLon = buoiChieuLon * lonPrice;
   const sumBanhRaAfternoon =
     computeBuoiChieuNho + computeBuoiChieuTrung + computeBuoiChieuLon;
 
@@ -127,7 +133,7 @@ export default function Home() {
     lon: number;
     sign: string;
   }) =>
-    (item.nho * 3 + item.trung * 4 + item.lon * 8) *
+    (item.nho * nhoPrice + item.trung * trungPrice + item.lon * lonPrice) *
     (item.sign === "-" ? -1 : 1);
 
   const updateKhacItems = (count: number) => {
@@ -200,6 +206,27 @@ export default function Home() {
 
       <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
         {/* Bánh Ra Section */}
+        <Card title="Nhập giá bánh ( nếu đổi )">
+          <div className="space-y-3.5">
+              <InputGroup
+              label="Giá bánh Nhỏ"
+              value={nhoPrice}
+              onChange={(e) => setNhoprice(Number(e.target.value))}
+            />
+            <InputGroup
+              label="Giá bánh Trung"
+              value={trungPrice}
+              onChange={(e) => setTrungprice(Number(e.target.value))}
+            />
+            <InputGroup
+              label="Giá bánh Lớn"
+              value={lonPrice}
+              onChange={(e) => setLonprice(Number(e.target.value))}
+            />
+          </div>
+            
+        </Card>
+        
         <Card title="Bánh Ra">
           <div className="flex flex-col space-y-2">
             <InputGroup
