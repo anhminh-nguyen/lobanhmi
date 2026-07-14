@@ -69,25 +69,25 @@ export default function Home() {
   // Computed Values - Morning
   const computeNho = nho * 3;
   const computeTrung = trung * 4;
-  const computeLon = lon * 7;
+  const computeLon = lon * 8;
   const sumBanhRa = computeNho + computeTrung + computeLon;
 
   const computeMoiNho = moiNho * 3;
   const computeMoiTrung = moiTrung * 4;
-  const computeMoiLon = moiLon * 7;
+  const computeMoiLon = moiLon * 8;
   const sumMoi = computeMoiNho + computeMoiTrung + computeMoiLon;
 
   const moiMinusResult = sumBanhRa - sumMoi;
 
-  const boTotal = boNho * 3 + boTrung * 4 + boLon * 7;
+  const boTotal = boNho * 3 + boTrung * 4 + boLon * 8;
   const afterBo = moiMinusResult - boTotal;
 
-  const daoTotal = daoNho * 3 + Math.round(daoTrung * 3.5) + daoLon * 7;
+  const daoTotal = daoNho * 3 + Math.round(daoTrung * 3.5) + daoLon * 8;
   const afterDao = afterBo - daoTotal;
   const tangDaoValue = daoTrung > 0 ? Math.round(daoTrung * 0.5) : 0;
   const afterTangDao = afterDao - tangDaoValue;
 
-  const quaChieuTotal = quaChieuNho * 3 + quaChieuTrung * 4 + quaChieuLon * 7;
+  const quaChieuTotal = quaChieuNho * 3 + quaChieuTrung * 4 + quaChieuLon * 8;
   const afterQuaChieu = afterTangDao - quaChieuTotal;
 
   const khacTotal = khacItems.reduce((acc, item) => acc + item.sum, 0);
@@ -101,7 +101,7 @@ export default function Home() {
   // Computed Values - Afternoon
   const computeBuoiChieuNho = buoiChieuNho * 3;
   const computeBuoiChieuTrung = buoiChieuTrung * 4;
-  const computeBuoiChieuLon = buoiChieuLon * 7;
+  const computeBuoiChieuLon = buoiChieuLon * 8;
   const sumBanhRaAfternoon =
     computeBuoiChieuNho + computeBuoiChieuTrung + computeBuoiChieuLon;
 
@@ -127,7 +127,7 @@ export default function Home() {
     lon: number;
     sign: string;
   }) =>
-    (item.nho * 3 + item.trung * 4 + item.lon * 7) *
+    (item.nho * 3 + item.trung * 4 + item.lon * 8) *
     (item.sign === "-" ? -1 : 1);
 
   const updateKhacItems = (count: number) => {
@@ -283,7 +283,7 @@ export default function Home() {
         </Card>
 
         {/* Đào Section */}
-        <Card title="Đào">
+        {/* <Card title="Đào">
           <div className="flex flex-col space-y-2">
             <InputGroup
               label="Nhỏ"
@@ -311,7 +311,7 @@ export default function Home() {
               </p>
             )}
           </div>
-        </Card>
+        </Card> */}
 
         {/* Qua Chiều Section */}
         <Card title="Qua Chiều">
