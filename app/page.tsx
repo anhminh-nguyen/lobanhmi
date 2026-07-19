@@ -30,19 +30,19 @@ interface KhacItemChieu {
 export default function Home() {
   // Morning State
   const [isEditing, setisEditing] = useState(false);
-  const [nho, setNho] = useState<number>(0);          // giá bình thường
+  const [nho, setNho] = useState<number>(0); // giá bình thường
   const [trung, setTrung] = useState<number>(0);
   const [lon, setLon] = useState<number>(0);
-  const [moiNho, setMoiNho] = useState<number>(0);      // giá mối
+  const [moiNho, setMoiNho] = useState<number>(0); // giá mối
   const [moiTrung, setMoiTrung] = useState<number>(0);
   const [moiLon, setMoiLon] = useState<number>(0);
-  const [boNho, setBoNho] = useState<number>(0);          // giá bỏ 
+  const [boNho, setBoNho] = useState<number>(0); // giá bỏ
   const [boTrung, setBoTrung] = useState<number>(0);
   const [boLon, setBoLon] = useState<number>(0);
-  const [quaChieuNho, setQuaChieuNho] = useState<number>(0);        // giá qua chiều 
+  const [quaChieuNho, setQuaChieuNho] = useState<number>(0); // giá qua chiều
   const [quaChieuTrung, setQuaChieuTrung] = useState<number>(0);
   const [quaChieuLon, setQuaChieuLon] = useState<number>(0);
-  const [soKhac, setSoKhac] = useState<number>(0);                  
+  const [soKhac, setSoKhac] = useState<number>(0);
   const [khacItems, setKhacItems] = useState<KhacItem[]>([]);
   const [chiTieuCount, setChiTieuCount] = useState<number>(0);
   const [chiTieuItems, setChiTieuItems] = useState<number[]>([]);
@@ -50,10 +50,10 @@ export default function Home() {
   const [newTongketAll, setnewTongketAll] = useState<number>(0);
 
   // Afternoon State
-  const [buoiChieuNho, setBuoiChieuNho] = useState<number>(0);        // giá buổi chiều 
+  const [buoiChieuNho, setBuoiChieuNho] = useState<number>(0); // giá buổi chiều
   const [buoiChieuTrung, setBuoiChieuTrung] = useState<number>(0);
   const [buoiChieuLon, setBuoiChieuLon] = useState<number>(0);
-  const [chiTieuChieuCount, setChiTieuChieuCount] = useState<number>(0); // chi tiêu 
+  const [chiTieuChieuCount, setChiTieuChieuCount] = useState<number>(0); // chi tiêu
   const [chiTieuChieuItems, setChiTieuChieuItems] = useState<number[]>([]);
   const [soKhacChieu, setSoKhacChieu] = useState<number>(0);
   const [khacItemsChieu, setKhacItemsChieu] = useState<KhacItemChieu[]>([]);
@@ -66,38 +66,38 @@ export default function Home() {
   const [nhoPrice, setNhoprice] = useState(3);
   const [trungPrice, setTrungprice] = useState(4);
   const [lonPrice, setLonprice] = useState(8);
-  const [chuyenkhoan, setChuyenkhoan] = useState(0)
-  const [chuyenkhoansang, setChuyenkhoansang] = useState(0)
-
-
+  const [chuyenkhoan, setChuyenkhoan] = useState<number>(0);
+  const [chuyenkhoansang, setChuyenkhoansang] = useState<number>(0);
+  const [banhle, setBanhle] = useState<number>(0);
 
   // Computed Values - Morning
   const computeNho = nho * nhoPrice;
   const computeTrung = trung * trungPrice;
   const computeLon = lon * lonPrice;
-  const sumBanhRa = computeNho + computeTrung + computeLon; // tính bánh sáng bth 
+  const sumBanhRa = computeNho + computeTrung + computeLon; // tính bánh sáng bth
 
   const computeMoiNho = moiNho * nhoPrice;
   const computeMoiTrung = moiTrung * trungPrice;
   const computeMoiLon = moiLon * lonPrice;
-  const sumMoi = computeMoiNho + computeMoiTrung + computeMoiLon; // tính sum mối 
+  const sumMoi = computeMoiNho + computeMoiTrung + computeMoiLon; // tính sum mối
 
-  const moiMinusResult = sumBanhRa - sumMoi;  
+  const moiMinusResult = sumBanhRa - sumMoi;
 
   const boTotal = boNho * nhoPrice + boTrung * trungPrice + boLon * lonPrice;
   const afterBo = moiMinusResult - boTotal;
 
-   const sumChiTieu = chiTieuItems.reduce((acc, val) => acc + val, 0);
-   const afterChitieu = afterBo - sumChiTieu
+  const sumChiTieu = chiTieuItems.reduce((acc, val) => acc + val, 0);
+  const afterChitieu = afterBo - sumChiTieu;
 
-
-  const quaChieuTotal = quaChieuNho * nhoPrice + quaChieuTrung * trungPrice + quaChieuLon * lonPrice;
+  const quaChieuTotal =
+    quaChieuNho * nhoPrice +
+    quaChieuTrung * trungPrice +
+    quaChieuLon * lonPrice;
   const afterQuaChieu = afterChitieu - quaChieuTotal;
 
   const khacTotal = khacItems.reduce((acc, item) => acc + item.sum, 0);
   const afterKhac = afterQuaChieu + khacTotal;
 
-  
   // const afterSang = afterKhac - sumChiTieu;
 
   const ketResult = tongThucTeSang + chuyenkhoansang - afterKhac;
@@ -121,9 +121,9 @@ export default function Home() {
   );
   const afterKhacChieu = afterChiTieuChieu + khacTotalChieu;
 
-  const chieuResultValue = tongThucTeChieu + 200 + chuyenkhoan - afterKhacChieu;
+  const chieuResultValue = tongThucTeChieu + banhle + chuyenkhoan - afterKhacChieu;
 
-  const tongKetAll = tongThucTeSang + (tongThucTeChieu + 200) + chuyenkhoan;
+  const tongKetAll = tongThucTeSang + (tongThucTeChieu + banhle) + chuyenkhoan + chuyenkhoansang;
 
   const computeKhacSum = (item: {
     nho: number;
@@ -131,7 +131,7 @@ export default function Home() {
     lon: number;
     sign: string;
   }) =>
-    (item.nho * nhoPrice + item.trung * trungPrice + item.lon * lonPrice) *
+    (item.nho  + item.trung + item.lon ) *
     (item.sign === "-" ? -1 : 1);
 
   const updateKhacItems = (count: number) => {
@@ -180,19 +180,25 @@ export default function Home() {
         sum: computeKhacSum(item),
       }));
     });
-  }; 
+  };
 
   const updateChiTieuItems = (count: number) => {
     setChiTieuItems((prevItems) => {
       const normalizedCount = Math.max(0, count);
-      return Array.from({ length: normalizedCount }, (_, i) => prevItems[i] || 0);
+      return Array.from(
+        { length: normalizedCount },
+        (_, i) => prevItems[i] || 0,
+      );
     });
   };
 
   const updateChiTieuChieuItems = (count: number) => {
     setChiTieuChieuItems((prevItems) => {
       const normalizedCount = Math.max(0, count);
-      return Array.from({ length: normalizedCount }, (_, i) => prevItems[i] || 0);
+      return Array.from(
+        { length: normalizedCount },
+        (_, i) => prevItems[i] || 0,
+      );
     });
   };
 
@@ -204,10 +210,10 @@ export default function Home() {
 
       {/* DONE */}
       <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {/* Giá bánh */} 
+        {/* Giá bánh */}
         <Card title="Nhập giá bánh ( nếu đổi )">
           <div className="space-y-3.5">
-              <InputGroup
+            <InputGroup
               label="Giá bánh Nhỏ"
               value={nhoPrice}
               onChange={(e) => setNhoprice(Number(e.target.value))}
@@ -222,9 +228,9 @@ export default function Home() {
               value={lonPrice}
               onChange={(e) => setLonprice(Number(e.target.value))}
             />
-          </div>          
+          </div>
         </Card>
-        
+
         {/* DONE */}
         <Card title="Bánh Ra">
           <div className="flex flex-col space-y-2">
@@ -248,7 +254,9 @@ export default function Home() {
             <p>Nhỏ: {computeNho}</p>
             <p>Trung: {computeTrung}</p>
             <p>Lớn: {computeLon}</p>
-            <p className="font-bold text-xl text-green-700">Tổng Bánh Ra: {sumBanhRa}</p>
+            <p className="font-bold text-xl text-green-700">
+              Tổng Bánh Ra: {sumBanhRa}
+            </p>
           </div>
         </Card>
 
@@ -276,7 +284,9 @@ export default function Home() {
             <p>Nhỏ: {computeMoiNho}</p>
             <p>Trung: {computeMoiTrung}</p>
             <p>Lớn: {computeMoiLon}</p>
-            <p className="font-bold text-lg text-green-700">Tổng Mối: {sumMoi}</p>
+            <p className="font-bold text-lg text-green-700">
+              Tổng Mối: {sumMoi}
+            </p>
             <p className="font-bold text-xl text-green-700">
               Sau khi trừ Mối: {moiMinusResult}
             </p>
@@ -304,11 +314,13 @@ export default function Home() {
             />
           </div>
           <div className="mt-4 pt-4 border-t border-gray-200">
-              <p>Nhỏ: {boNho*nhoPrice}</p>
-              <p>Trung: {boTrung*trungPrice}</p>
-              <p>Lớn: {boLon*lonPrice}</p>
-              <p className="font-bold text-lg text-green-700">Tổng Bỏ: {boTotal}</p>
-              <p className="font-bold text-xl text-green-700">
+            <p>Nhỏ: {boNho * nhoPrice}</p>
+            <p>Trung: {boTrung * trungPrice}</p>
+            <p>Lớn: {boLon * lonPrice}</p>
+            <p className="font-bold text-lg text-green-700">
+              Tổng Bỏ: {boTotal}
+            </p>
+            <p className="font-bold text-xl text-green-700">
               Sau khi trừ Bỏ: {afterBo}
             </p>
           </div>
@@ -322,17 +334,14 @@ export default function Home() {
             value={chiTieuCount}
             onChange={(e) => {
               setChiTieuCount(Number(e.target.value));
-              updateChiTieuItems(Number(e.target.value))
+              updateChiTieuItems(Number(e.target.value));
             }}
-            type="number"
+            
           />
           <div className="mt-4 space-y-2">
-            {
-            
-            chiTieuItems.map((item, index) => (
+            {chiTieuItems.map((item, index) => (
               <input
                 key={index}
-                type="number"
                 className="block w-full rounded-md border border-gray-300 p-2 text-sm"
                 value={item}
                 onChange={(e) =>
@@ -345,12 +354,13 @@ export default function Home() {
               />
             ))}
           </div>
-          <p className="mt-4 text-lg font-bold text-green-700">Tổng Chi Tiêu: {sumChiTieu}</p>
+          <p className="mt-4 text-lg font-bold text-green-700">
+            Tổng Chi Tiêu: {sumChiTieu}
+          </p>
           <p className="mt-2 font-bold text-xl text-green-700">
             Sau khi trừ Chi Tiêu: {afterChitieu}
           </p>
         </Card>
-
 
         {/* DONE */}
         {/* Qua Chiều Section */}
@@ -373,12 +383,13 @@ export default function Home() {
             />
           </div>
           <div className="mt-4 pt-4 border-t border-gray-200">
-           
-              <p>Nhỏ: { quaChieuNho * nhoPrice}</p>
-              <p>Trung: {quaChieuTrung * trungPrice}</p>
-              <p>Lớn: {quaChieuLon * lonPrice}</p>
-              <p className="font-bold text-lg text-green-700">Tổng Qua Chiều: {quaChieuTotal}</p>
-               <p className="font-bold text-xl text-green-700">
+            <p>Nhỏ: {quaChieuNho * nhoPrice}</p>
+            <p>Trung: {quaChieuTrung * trungPrice}</p>
+            <p>Lớn: {quaChieuLon * lonPrice}</p>
+            <p className="font-bold text-lg text-green-700">
+              Tổng Qua Chiều: {quaChieuTotal}
+            </p>
+            <p className="font-bold text-xl text-green-700">
               Sau khi trừ Qua Chiều: {afterQuaChieu}
             </p>
           </div>
@@ -392,9 +403,8 @@ export default function Home() {
             value={soKhac}
             onChange={(e) => {
               setSoKhac(Number(e.target.value));
-              updateKhacItems(Number(e.target.value))}
-            }
-            type="number"
+              updateKhacItems(Number(e.target.value));
+            }}
           />
           <div className="mt-4 space-y-4">
             {khacItems.map((item, index) => (
@@ -421,16 +431,22 @@ export default function Home() {
                 <div className="mt-2 flex items-center space-x-2">
                   <label className="w-16 text-sm font-medium">Nhỏ:</label>
                   <input
-                    type="number"
                     className="w-20 rounded-md border border-gray-300 p-2 text-sm"
                     value={item.nho}
                     onChange={(e) =>
                       setKhacItems((prev) =>
                         prev.map((khac) =>
                           khac.id === item.id
-                            ? { ...khac, nho: Number(e.target.value),sum: computeKhacSum({...item,nho:Number(e.target.value)}) }
+                            ? {
+                                ...khac,
+                                nho: Number(e.target.value),
+                                sum: computeKhacSum({
+                                  ...item,
+                                  nho: Number(e.target.value),
+                                }),
+                              }
                             : khac,
-                        )
+                        ),
                       )
                     }
                   />
@@ -438,14 +454,20 @@ export default function Home() {
                 <div className="mt-2 flex items-center space-x-2">
                   <label className="w-16 text-sm font-medium">Trung:</label>
                   <input
-                    type="number"
                     className="w-20 rounded-md border border-gray-300 p-2 text-sm"
                     value={item.trung}
                     onChange={(e) =>
                       setKhacItems((prev) =>
                         prev.map((khac) =>
                           khac.id === item.id
-                            ? { ...khac, trung: Number(e.target.value),sum: computeKhacSum({...item,trung:Number(e.target.value)}) }
+                            ? {
+                                ...khac,
+                                trung: Number(e.target.value),
+                                sum: computeKhacSum({
+                                  ...item,
+                                  trung: Number(e.target.value),
+                                }),
+                              }
                             : khac,
                         ),
                       )
@@ -455,14 +477,20 @@ export default function Home() {
                 <div className="mt-2 flex items-center space-x-2">
                   <label className="w-16 text-sm font-medium">Lớn:</label>
                   <input
-                    type="number"
                     className="w-20 rounded-md border border-gray-300 p-2 text-sm"
                     value={item.lon}
                     onChange={(e) =>
                       setKhacItems((prev) =>
                         prev.map((khac) =>
                           khac.id === item.id
-                            ? { ...khac, lon: Number(e.target.value), sum: computeKhacSum({...item,lon:Number(e.target.value)}) }
+                            ? {
+                                ...khac,
+                                lon: Number(e.target.value),
+                                sum: computeKhacSum({
+                                  ...item,
+                                  lon: Number(e.target.value),
+                                }),
+                              }
                             : khac,
                         ),
                       )
@@ -480,7 +508,14 @@ export default function Home() {
                       setKhacItems((prev) =>
                         prev.map((khac) =>
                           khac.id === item.id
-                            ? { ...khac, sign: e.target.value, sum: computeKhacSum({...item,sign:String(e.target.value)}) }
+                            ? {
+                                ...khac,
+                                sign: e.target.value,
+                                sum: computeKhacSum({
+                                  ...item,
+                                  sign: String(e.target.value),
+                                }),
+                              }
                             : khac,
                         ),
                       )
@@ -491,7 +526,8 @@ export default function Home() {
                   </select>
                 </div>
                 <p className="mt-2 text-sm">
-                  Tổng mục này: <b className="font-bold text-green-700">{item.sum}</b>
+                  Tổng mục này:{" "}
+                  <b className="font-bold text-green-700">{item.sum}</b>
                 </p>
               </div>
             ))}
@@ -504,28 +540,26 @@ export default function Home() {
           </p>
         </Card>
 
-        
         {/* DONE */}
         {/* Final Morning Section */}
         <Card title="Tổng Buổi Sáng">
           <div className="space-y-2">
-              <p className="text-lg font-bold ">
-            Tổng buổi sáng:{" "}
-            <span className="text-green-700">{afterKhac}</span>
-          </p>
-          <InputGroup
-            label="Tổng buổi sáng Thực Tế"
-            value={tongThucTeSang}
-            onChange={(e) => setTongThucTeSang(Number(e.target.value))}
-            type="number"
-          />
-          <InputGroup
+            <p className="text-lg font-bold ">
+              Tổng buổi sáng:{" "}
+              <span className="text-green-700">{afterKhac}</span>
+            </p>
+            <InputGroup
+              label="Tổng buổi sáng Thực Tế"
+              value={tongThucTeSang}
+              onChange={(e) => setTongThucTeSang(Number(e.target.value))}
+            />
+            <InputGroup
               label="Chuyển khoản"
               value={chuyenkhoansang}
               onChange={(e) => setChuyenkhoansang(Number(e.target.value))}
             />
           </div>
-          
+
           <h3
             className={`mt-4 text-2xl font-bold ${ketResult < 0 ? "text-red-500" : "text-green-500"}`}
           >
@@ -538,7 +572,6 @@ export default function Home() {
         </Card>
       </div>
 
-
       <div className="my-12 border-t-2 border-dashed border-blue-600 pt-12">
         <h1 className="text-4xl font-extrabold text-blue-600 text-center mb-8">
           Afternoon
@@ -546,7 +579,6 @@ export default function Home() {
       </div>
 
       <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-
         {/* DONE */}
         {/* Bánh Ra Section - Afternoon */}
         <Card title="Bánh Ra (Chiều)">
@@ -581,7 +613,7 @@ export default function Home() {
             )}
           </div>
         </Card>
-        
+
         {/* DONE */}
         {/* Chi Tiêu Section - Afternoon */}
         <Card title="Chi Tiêu (Chiều)">
@@ -590,15 +622,15 @@ export default function Home() {
             value={chiTieuChieuCount}
             onChange={(e) => {
               setChiTieuChieuCount(Number(e.target.value));
-              updateChiTieuChieuItems(Number(e.target.value))
+              updateChiTieuChieuItems(Number(e.target.value));
             }}
-            type="number"
+   
           />
           <div className="mt-4 space-y-2">
             {chiTieuChieuItems.map((item, index) => (
               <input
                 key={index}
-                type="number"
+     
                 className="block w-full rounded-md border border-gray-300 p-2 text-sm"
                 value={item}
                 onChange={(e) =>
@@ -624,12 +656,11 @@ export default function Home() {
           <InputGroup
             label="How many"
             value={soKhacChieu}
-            onChange={(e) => 
-              {setSoKhacChieu(Number(e.target.value));
-                updateKhacItemsChieu(Number(e.target.value))
+            onChange={(e) => {
+              setSoKhacChieu(Number(e.target.value));
+              updateKhacItemsChieu(Number(e.target.value));
+            }}
 
-              }}
-            type="number"
           />
           <div className="mt-4 space-y-4">
             {khacItemsChieu.map((item, index) => (
@@ -647,7 +678,7 @@ export default function Home() {
                     setKhacItemsChieu((prev) =>
                       prev.map((khac) =>
                         khac.id === item.id
-                          ? { ...khac, name: e.target.value,}
+                          ? { ...khac, name: e.target.value }
                           : khac,
                       ),
                     )
@@ -656,14 +687,21 @@ export default function Home() {
                 <div className="mt-2 flex items-center space-x-2">
                   <label className="w-16 text-sm font-medium">Nhỏ:</label>
                   <input
-                    type="number"
+             
                     className="w-20 rounded-md border border-gray-300 p-2 text-sm"
                     value={item.nho}
                     onChange={(e) =>
                       setKhacItemsChieu((prev) =>
                         prev.map((khac) =>
                           khac.id === item.id
-                            ? { ...khac, nho: Number(e.target.value), sum:computeKhacSum({...item,nho:Number(e.target.value)}) }
+                            ? {
+                                ...khac,
+                                nho: Number(e.target.value),
+                                sum: computeKhacSum({
+                                  ...item,
+                                  nho: Number(e.target.value),
+                                }),
+                              }
                             : khac,
                         ),
                       )
@@ -673,14 +711,21 @@ export default function Home() {
                 <div className="mt-2 flex items-center space-x-2">
                   <label className="w-16 text-sm font-medium">Trung:</label>
                   <input
-                    type="number"
+           
                     className="w-20 rounded-md border border-gray-300 p-2 text-sm"
                     value={item.trung}
                     onChange={(e) =>
                       setKhacItemsChieu((prev) =>
                         prev.map((khac) =>
                           khac.id === item.id
-                            ? { ...khac, trung: Number(e.target.value),sum:computeKhacSum({...item,trung:Number(e.target.value)})  }
+                            ? {
+                                ...khac,
+                                trung: Number(e.target.value),
+                                sum: computeKhacSum({
+                                  ...item,
+                                  trung: Number(e.target.value),
+                                }),
+                              }
                             : khac,
                         ),
                       )
@@ -690,14 +735,21 @@ export default function Home() {
                 <div className="mt-2 flex items-center space-x-2">
                   <label className="w-16 text-sm font-medium">Lớn:</label>
                   <input
-                    type="number"
+          
                     className="w-20 rounded-md border border-gray-300 p-2 text-sm"
                     value={item.lon}
                     onChange={(e) =>
                       setKhacItemsChieu((prev) =>
                         prev.map((khac) =>
                           khac.id === item.id
-                            ? { ...khac, lon: Number(e.target.value),sum:computeKhacSum({...item,lon:Number(e.target.value)})  }
+                            ? {
+                                ...khac,
+                                lon: Number(e.target.value),
+                                sum: computeKhacSum({
+                                  ...item,
+                                  lon: Number(e.target.value),
+                                }),
+                              }
                             : khac,
                         ),
                       )
@@ -715,7 +767,14 @@ export default function Home() {
                       setKhacItemsChieu((prev) =>
                         prev.map((khac) =>
                           khac.id === item.id
-                            ? { ...khac, sign: e.target.value,sum:computeKhacSum({...item,sign:String(e.target.value)})  }
+                            ? {
+                                ...khac,
+                                sign: e.target.value,
+                                sum: computeKhacSum({
+                                  ...item,
+                                  sign: String(e.target.value),
+                                }),
+                              }
                             : khac,
                         ),
                       )
@@ -743,27 +802,30 @@ export default function Home() {
         <Card title="Tổng Buổi Chiều">
           <div className="flex items-center space-x-2">
             <div className="space-y-2">
-                <InputGroup
-              label="Tiền Chuyển Khoản"
-              value={chuyenkhoan}
-              onChange={(e) => setChuyenkhoan(Number(e.target.value))}
-            />
+              <h3 className="font-bold text-2xl ">Tổng buổi chiều: {afterKhacChieu}</h3>
+              <InputGroup
+                label="Tiền Chuyển Khoản"
+                value={chuyenkhoan}
+                onChange={(e) => setChuyenkhoan(Number(e.target.value))}
+              />
 
-            <p className="font-bold text-lg text-green-700">Tổng thực tế chiều:</p>
-            <input
-              type="number"
-              className="h-8 w-32 rounded-md border border-gray-300 p-2 text-lg"
-              value={tongThucTeChieu}
-              onChange={(e) => setTongThucTeChieu(Number(e.target.value))}
-            />
+              <InputGroup
+                label="Tiền Bán Lẻ"
+                value={banhle}
+                onChange={(e) => setBanhle(Number(e.target.value))}
+              />
 
+              <p className="font-bold text-lg text-green-700">
+                Tổng thực tế chiều:
+              </p>
+              <input
+                className="h-8 w-32 rounded-md border border-gray-300 p-2 text-lg"
+                value={tongThucTeChieu}
+                onChange={(e) => setTongThucTeChieu(Number(e.target.value))}
+              />
             </div>
-            
-            
-            
           </div>
-          <p className="text-lg font-bold text-green-700 mt-2">+200</p>
-          <p className="text-lg font-bold mt-2 text-green-700 ">+ Chuyển khoản: {chuyenkhoan}</p>
+          
           <h3
             className={`mt-4 text-2xl font-bold ${chieuResultValue < 0 ? "text-red-500" : "text-green-500"}`}
           >
@@ -780,12 +842,24 @@ export default function Home() {
 
         <Card title="Lưu Tổng Ngày">
           <div className="flex flex-col">
-            <div  className="flex flex-col gap-1.5" >
-              <InputGroup  label="Ngày" value={ngay} onChange={(e) => setNgay(e.target.value) } />
-              <InputGroup label="Tháng" value={thang} onChange={(e) => setThang(e.target.value) } />
-              <InputGroup label="Năm" value={nam} onChange={(e) => setNam(e.target.value) } />
+            <div className="flex flex-col gap-1.5">
+              <InputGroup
+                label="Ngày"
+                value={ngay}
+                onChange={(e) => setNgay(e.target.value)}
+              />
+              <InputGroup
+                label="Tháng"
+                value={thang}
+                onChange={(e) => setThang(e.target.value)}
+              />
+              <InputGroup
+                label="Năm"
+                value={nam}
+                onChange={(e) => setNam(e.target.value)}
+              />
             </div>
-            
+
             <p className="font-bold">
               Tổng tiền sẽ LƯU ngày hôm nay là:{" "}
               <span className="text-red-600 text-xl">{tongKetAll}</span> ?
@@ -794,8 +868,8 @@ export default function Home() {
               <button
                 className="border-2 border-green-500 p-2 rounded-2xl hover:bg-green-500 hover:text-white"
                 onClick={async () => {
-                  await luuTongNgay(tongKetAll,ngay,thang,nam);
-                  alert ('Đã lưu Thành công')
+                  await luuTongNgay(tongKetAll, ngay, thang, nam);
+                  alert("Đã lưu Thành công");
                 }}
               >
                 Yes
@@ -818,25 +892,32 @@ export default function Home() {
                 ></input>
                 <button
                   className="mx-auto  mt-1.5 border-2 border-green-500 p-2 rounded-2xl hover:bg-green-500 hover:text-white"
-                  onClick={async() =>{ await luuTongNgay(newTongketAll,ngay,thang,nam);
-                    alert ('Đã lưu Thành công');
+                  onClick={async () => {
+                    await luuTongNgay(newTongketAll, ngay, thang, nam);
+                    alert("Đã lưu Thành công");
                   }}
-                >Xác nhận</button>
+                >
+                  Xác nhận
+                </button>
               </>
             )}
           </div>
         </Card>
 
         <Card title="Bảng Thống kê">
-          <div className="flex flex-col items-center h-full" >
-            <h2 className="font-semibold">Nhấn để xem chi tiết tổng Ngày, Tháng, Năm </h2>
-            <Link href="/bangthongke" className="mt-4 text-2xl font-bold border-2 backdrop-blur-2xl rounded-2xl p-2 hover:bg-blue-500 hover:text-white" > Click here! </Link>
-
+          <div className="flex flex-col items-center h-full">
+            <h2 className="font-semibold">
+              Nhấn để xem chi tiết tổng Ngày, Tháng, Năm{" "}
+            </h2>
+            <Link
+              href="/bangthongke"
+              className="mt-4 text-2xl font-bold border-2 backdrop-blur-2xl rounded-2xl p-2 hover:bg-blue-500 hover:text-white"
+            >
+              {" "}
+              Click here!{" "}
+            </Link>
           </div>
-           
-
         </Card>
-
       </div>
     </div>
   );
